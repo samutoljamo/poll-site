@@ -23,12 +23,14 @@ export class CreatePollForm extends React.Component<{}, State>{
 
     }
     handleInputChange(event : FormEvent<HTMLInputElement>) : void{
+        event.preventDefault();
         const target = event.currentTarget;
         this.setState({
             'name': target.value
         });
     }
     handleOptionChange(event : FormEvent<HTMLInputElement>, num : number){
+        event.preventDefault();
         const target = event.currentTarget;
         var options = this.state.options;
         options[num] = target.value;
@@ -58,7 +60,8 @@ export class CreatePollForm extends React.Component<{}, State>{
         options.push('');
         this.setState({options:options});
     }
-    handleRemove(num : number) :void{
+    handleRemove(event : FormEvent, num : number) :void{
+        event.preventDefault();
         var options = this.state.options;
         options.splice(num, 1);
         this.setState({options:options});
@@ -70,6 +73,7 @@ export class CreatePollForm extends React.Component<{}, State>{
         }
         let options : any = [];
         let id : number = 0;
+        console.log(this.state.options);
         this.state.options.forEach(name => {
             options.push(<Option onChange={this.handleOptionChange} key={id} data={id} handleRemove={this.handleRemove}/>); id++;});
         return (
