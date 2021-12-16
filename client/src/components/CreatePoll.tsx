@@ -73,7 +73,6 @@ export class CreatePollForm extends React.Component<{}, State>{
         }
         let options : any = [];
         let id : number = 0;
-        console.log(this.state.options);
         this.state.options.forEach(name => {
             options.push(<Option onChange={this.handleOptionChange} key={id} data={id} handleRemove={this.handleRemove}/>); id++;});
         return (
