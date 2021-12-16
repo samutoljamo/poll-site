@@ -21,7 +21,7 @@ interface PollInfo extends Omit<Poll, "options">{
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors());
 app.use(express.json());
 
@@ -113,7 +113,7 @@ app.get("/api/newpolls", function(req, res){
 });
 
 app.get("*", function(req, res){
-    res.sendFile(__dirname + "/client/build/index.html");
+    res.sendFile(__dirname + "/build/index.html");
 });
 
 app.listen(PORT, function(){
