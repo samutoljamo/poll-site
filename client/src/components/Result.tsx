@@ -7,7 +7,7 @@ interface RouterParams{
 
 interface State{
     title: string,
-    options: Omit<Option, "id">[],
+    options: Omit<Option, "optid">[],
     redirect: string
 }
 

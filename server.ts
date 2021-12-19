@@ -41,6 +41,7 @@ app.post("/api/vote/:id", function(req, res){
         try{
             const option : number = parseInt(req.body.option);
             poll.options[option].votes += 1;
+            poll.save();
             res.sendStatus(204);
         }catch (error){
             console.log(err);
