@@ -1,7 +1,7 @@
 interface Option{
     votes: number,
     name: string,
-    id: number
+    optid: number
 }
 type OptionInfo = Omit<Option, "votes">;
 
@@ -11,5 +11,5 @@ interface Poll{
 }
 interface PollInfo extends Omit<Poll, "options">{
     options: OptionInfo[],
-    id: number
+    _id: string
 }

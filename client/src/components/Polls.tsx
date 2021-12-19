@@ -26,8 +26,8 @@ export class Polls extends React.Component<{}, State>{
         var options :any = [];
         this.state.polls.forEach(element => {
             options.push(
-                <div key={element.id} className="card">
-                    <Link className="card-title h4" to={`/vote/${element.id}`}>{element.name}</Link>
+                <div key={element._id} className="card">
+                    <Link className="card-title h4" to={`/vote/${element._id}`}>{element.name}</Link>
                 </div>
             );
         });
