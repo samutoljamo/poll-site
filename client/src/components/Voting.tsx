@@ -5,7 +5,7 @@ interface RouterParams{
 }
 interface State{
     title: string,
-    options: {name: number, id: string}[],
+    options: {name: string, optid: number}[],
     chosen: number,
     redirect: string
 }
@@ -56,8 +56,8 @@ export class Voting extends React.Component<RouteComponentProps<RouterParams>, S
         var options :any = [];
         this.state.options.forEach(element => {
             options.push(
-                <div key={element.id} className="form-check">
-                    <input className="form-check-input" type="radio" name="option" onClick={() => this.handleOption(parseInt(element.id))}/>
+                <div key={element.optid} className="form-check">
+                    <input className="form-check-input" type="radio" name="option" onClick={() => this.handleOption(element.optid)}/>
                     <label className="form-check-label">{element.name}</label>
                 </div>
             );
