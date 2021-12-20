@@ -45,7 +45,7 @@ export class CreatePollForm extends React.Component<{}, State>{
             name: this.state.name,
             options: this.state.options
         }
-        fetch("/api/createpoll/", {
+        fetch("/api/polls/", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

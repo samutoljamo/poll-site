@@ -16,7 +16,7 @@ export class Polls extends React.Component<{}, State>{
         }
     }
     componentDidMount(){
-        fetch(`/api/newpolls`).then(res => res.json()).then(res => this.setState({
+        fetch(`/api/polls`).then(res => res.json()).then(res => this.setState({
             polls: res,
             requested: true
         }));

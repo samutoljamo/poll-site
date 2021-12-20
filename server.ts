@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 // creates and saves a new poll
-app.post("/api/createpoll", function(req, res){
+app.post("/api/polls", function(req, res){
     const poll : HydratedDocument<Poll> = new PollModel({"name": req.body.name, "options": []});
     var id : number = 0;
     req.body.options.forEach((element: string) => {
@@ -69,7 +69,7 @@ app.get("/api/vote/:id", function(req, res){
 });
 
 // returns the current results of a poll
-app.get("/api/results/:id", function(req, res){
+app.get("/api/polls/:id", function(req, res){
     PollModel.findById(sanitize(req.params.id)).lean().then(function(poll: Poll | null){
         res.json(poll);
     }).catch(function(err: Error){
@@ -79,7 +79,7 @@ app.get("/api/results/:id", function(req, res){
 });
 
 // returns 10 newest polls
-app.get("/api/newpolls", function(req, res){
+app.get("/api/polls", function(req, res){
     PollModel.find().sort({createdAt: "desc"}).limit(10).lean().then(function(polls : Poll[]){
         res.json(polls); // this sends fields it doesn't have to
     }).catch(function(err : Error){

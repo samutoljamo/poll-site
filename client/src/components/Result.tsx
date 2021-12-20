@@ -25,7 +25,7 @@ export class Result extends React.Component<RouteComponentProps<RouterParams>, S
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount(){
-        fetch(`/api/results/${this.props.match.params.id}`).then(res => res.json()).then(res => this.setState({
+        fetch(`/api/polls/${this.props.match.params.id}`).then(res => res.json()).then(res => this.setState({
             title: res.name,
             options: res.options,
             requested: true
