@@ -2,7 +2,8 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 interface State{
-    polls : PollInfo[]
+    polls: PollInfo[],
+    requested: boolean
 }
 
 
@@ -10,19 +11,23 @@ export class Polls extends React.Component<{}, State>{
     constructor(props : any){
         super(props);
         this.state = {
-            polls: []
+            polls: [],
+            requested: false
         }
     }
     componentDidMount(){
         fetch(`/api/newpolls`).then(res => res.json()).then(res => this.setState({
-            polls: res
+            polls: res,
+            requested: true
         }));
     }
     render(){
+        if(!this.state.requested){
+            return <div></div>
+        }
         if(this.state.polls.length === 0){
             return <div> no polls</div>;
         }
-        console.log(this.state.polls);
         var options :any = [];
         this.state.polls.forEach(element => {
             options.push(

@@ -7,7 +7,8 @@ interface State{
     title: string,
     options: {name: string, optid: number}[],
     chosen: number,
-    redirect: string
+    redirect: string,
+    requested: boolean
 }
 export class Voting extends React.Component<RouteComponentProps<RouterParams>, State>{
     constructor(props : any){
@@ -16,7 +17,8 @@ export class Voting extends React.Component<RouteComponentProps<RouterParams>, S
             title: '',
             options: [],
             chosen: -1,
-            redirect: ''
+            redirect: '',
+            requested: false
         }
         this.handleOption = this.handleOption.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +26,8 @@ export class Voting extends React.Component<RouteComponentProps<RouterParams>, S
     componentDidMount(){
         fetch(`/api/vote/${this.props.match.params.id}`).then(res => res.json()).then(res => this.setState({
             title: res.name,
-            options: res.options
+            options: res.options,
+            requested: true
         }));
     }
     handleSubmit(e : FormEvent<HTMLInputElement>){
@@ -52,6 +55,9 @@ export class Voting extends React.Component<RouteComponentProps<RouterParams>, S
     render(){
         if(this.state.redirect !== ''){
             return <Redirect push to={this.state.redirect}/>
+        }
+        if(!this.state.requested){
+            return <div></div>
         }
         var options :any = [];
         this.state.options.forEach(element => {

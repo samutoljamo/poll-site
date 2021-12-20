@@ -8,7 +8,8 @@ interface RouterParams{
 interface State{
     title: string,
     options: Omit<Option, "optid">[],
-    redirect: string
+    redirect: string,
+    requested: boolean
 }
 
 
@@ -18,14 +19,16 @@ export class Result extends React.Component<RouteComponentProps<RouterParams>, S
         this.state = {
             title: '',
             options: [],
-            redirect: ''
+            redirect: '',
+            requested: false
         };
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount(){
         fetch(`/api/results/${this.props.match.params.id}`).then(res => res.json()).then(res => this.setState({
             title: res.name,
-            options: res.options
+            options: res.options,
+            requested: true
         }));
     }
     handleClick(e : FormEvent<HTMLButtonElement>){
@@ -37,6 +40,9 @@ export class Result extends React.Component<RouteComponentProps<RouterParams>, S
     render(){
         if(this.state.redirect !== ''){
             return <Redirect push to={this.state.redirect}/>
+        }
+        if(!this.state.requested){
+            return <div></div>
         }
         var options :any = [];
         this.state.options.forEach(element => {
